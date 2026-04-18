@@ -1,36 +1,51 @@
-[![Build status](https://ci.appveyor.com/api/projects/status/25mwgfr0oujgban3?svg=true)](https://ci.appveyor.com/project/Professor-Severus-Snape/ra-router-menu)
+[![Vite CI/CD](https://github.com/professor-severus-snape/menu-router/actions/workflows/vite_ci-cd.yml/badge.svg)](https://github.com/professor-severus-snape/menu-router/actions/workflows/vite_ci-cd.yml)
 
-# Навигационное меню
+# Навигационное меню гоночного такси
 
-Необходимо реализовать меню для сайта гоночного такси с пунктами «Главная», «Дрифт-такси», «Time Attack» и «Forza Karting». При переходе на страницу соответствующий пункт меню должен подсветиться:  
+React-приложение с навигационным меню для сайта гоночного такси с пунктами:
 
-![Навигационное меню](./pic/menu.jpg)
+- «Главная»
+- «Дрифт-такси»
+- «Time Attack»
+- «Forza Karting»
 
-## Описание компонента
+При переходе на страницу соответствующий пункт меню подсвечивается.
 
-Компонент должен создавать HTML-разметку вида:
-```html
-<nav class="menu">
-  <li class="menu__item">
-    <a class="menu__link" href="/">Главная</a>
-  </li>
-  <li class="menu__item">
-    <a class="menu__link" href="/drift">Дрифт-такси</a>
-  </li>
-  <li class="menu__item">
-    <a class="menu__link" href="/timeattack">Time Attack</a>
-  </li>
-  <li class="menu__item">
-    <a class="menu__link" href="/forza">Forza Karting</a>
-  </li>
-</nav>
-```
-Активный пункт меню помечается классом `menu__link-active`.
+## Демо
 
-## Реализация
+Посмотреть демо можно [здесь](https://professor-severus-snape.github.io/menu-router/).
 
-Необходимо реализовать компонент `Menu`.
+## Возможности и логика работы
 
-Воспользуйтесь готовым файлом `App.js` и стилями в качестве отправной точки.
+- SPA-навигация между страницами с подсветкой активного пункта
+- Поддержка React Router v7 с вложенными маршрутами
+- Корректная работа на GitHub Pages благодаря `basename` и `404.html`
 
-**Обратите внимание**: в файлах `App.js` расположено несколько компонентов не потому, что так нужно делать, а чтобы вам было удобнее копировать. Будет хорошо, если в своём решении вы разнесёте их по разным файлам.
+### Компоненты
+
+- **App** — создаёт маршруты (`createBrowserRouter`), оборачивает в `RouterProvider`
+- **Layout** — общий шаблон с `Menu` и `Outlet`
+- **Menu** — меню с подсветкой активного пункта через `NavLink`
+- **HomePage, DriftPage, TimeAttackPage, ForzaPage** — страницы приложения
+- **ErrorPage** — отображает непредвиденные ошибки
+- **NotFoundPage** — 404 страница с кнопкой «Вернуться назад»
+
+## Технологии
+
+- React v19
+  - JSX
+  - functional components
+- React Router v7 
+  - createBrowserRouter
+  - RouterProvider
+  - Outlet
+  - Link / NavLink
+  - useNavigate
+- типизация - TypeScript v6
+- линтинг - ESLint v10
+- сборка - Vite v8
+
+## CI/CD
+
+- GitHub Actions - линтинг и сборка проекта (CI)
+- GitHub Pages - автоматический деплой приложения (CD)
