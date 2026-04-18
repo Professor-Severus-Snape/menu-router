@@ -1,9 +1,4 @@
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  RouterProvider,
-} from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Layout from './components/Layout/Layout';
 import DriftPage from './pages/DriftPage/DriftPage';
@@ -14,36 +9,24 @@ import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import TimeAttackPage from './pages/TimeAttackPage/TimeAttackPage';
 
 const App = () => {
-  const routes = createBrowserRouter(
-    createRoutesFromElements(
-      <Route path="/" element={<Layout />} errorElement={<ErrorPage />}>
-        <Route index element={<HomePage />} />
-        <Route path="drift" element={<DriftPage />} />
-        <Route path="timeattack" element={<TimeAttackPage />} />
-        <Route path="forza" element={<ForzaPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Route>
-    ),
+  const routes = [
     {
-      // добавляем 'basename' значение которого будет взято из конфига vite:
-      basename: import.meta.env.BASE_URL,
-      // избавляет от множества warn в консоли:
-      future: {
-        v7_relativeSplatPath: true,
-        v7_fetcherPersist: true,
-        v7_normalizeFormMethod: true,
-        v7_partialHydration: true,
-        v7_skipActionErrorRevalidation: true,
-      },
-    }
-  );
+      path: '/',
+      element: <Layout />,
+      errorElement: <ErrorPage />,
+      children: [
+        { index: true, element: <HomePage /> },
+        { path: 'drift', element: <DriftPage /> },
+        { path: 'timeattack', element: <TimeAttackPage /> },
+        { path: 'forza', element: <ForzaPage /> },
+        { path: '*', element: <NotFoundPage /> },
+      ],
+    },
+  ];
 
-  return (
-    <RouterProvider
-      router={routes}
-      future={{ v7_startTransition: true }} // избавляет от warn в консоли
-    />
-  );
+  const router = createBrowserRouter(routes, { basename: import.meta.env.BASE_URL }); // 'base' vite
+
+  return <RouterProvider router={router} />;
 };
 
 export default App;
